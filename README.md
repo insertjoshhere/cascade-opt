@@ -48,7 +48,48 @@ cascade-opt serves as an intelligent, drop-in proxy layer that generalizes text-
 
 ## Step-by-Step Execution Trace
 
-| The Query: "Find me all Costco bulk orders from last month where the customer text complaint mentions delivery damage, and give me a nested JSON of the product details paired with the severity."
+| **Natural Language Query**: "Find me all Costco bulk orders from last month where the customer text complaint mentions delivery damage, and give me a nested JSON of the product details paired with the severity."
+
+**SQL Query**
+```
+SELECT 
+    order_id,
+    JSON_OBJECT(
+        'product_details', product_details,
+        'incident_analysis', AI_EXTRACT(complaint_prose, DamageAnalysisSchema)
+    ) AS nested_output
+FROM costco_orders
+WHERE order_type = 'BULK'
+  AND order_date BETWEEN '2026-04-01' AND '2026-04-30';
+```
+
+**SQLAlchemy ORM**
+```
+from sqlalchemy import func, and_
+from pydantic import BaseModel, Field
+
+# 1. Define the target Pydantic schema passed to the middleware
+class DamageAnalysisSchema(BaseModel):
+    severity: str = Field(description="Severity of delivery damage: LOW, MEDIUM, CRITICAL")
+    mentions_damage: bool = Field(description="True if delivery damage is explicitly mentioned")
+
+# 2. Build the abstraction query using the SQLAlchemy execution factory
+query = (
+    session.query(
+        CostcoOrder.order_id,
+        func.json_object(
+            'product_details', CostcoOrder.product_details,
+            'incident_analysis', func.ai_extract(CostcoOrder.complaint_prose, DamageAnalysisSchema)
+        ).label('nested_output')
+    )
+    .filter(
+        and_(
+            CostcoOrder.order_type == 'BULK',
+            CostcoOrder.order_date.between('2026-04-01', '2026-04-30')
+        )
+    )
+)
+```
 
 ### A. Plan Parser
 The parser receives the raw string, normalizes the input, maps it against database schemas, and constructs the initial internal logical representation.
