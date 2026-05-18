@@ -48,6 +48,8 @@ cascade-opt serves as an intelligent, drop-in proxy layer that generalizes text-
 
 ## Step-by-Step Execution Trace
 
+| The Query: "Find me all Costco bulk orders from last month where the customer text complaint mentions delivery damage, and give me a nested JSON of the product details paired with the severity."
+
 ### A. Plan Parser
 The parser receives the raw string, normalizes the input, maps it against database schemas, and constructs the initial internal logical representation.
 
