@@ -1,22 +1,26 @@
 # cascade-opt
-A database optimizer middleware layer designed to compile queries containing embedded text-analysis primitives, treating LLM inference cost and latency as first-class compilation constraints.
+An omnichannel database optimization and abstraction layer designed to compile and execute data extraction workflows containing embedded AI primitives, treating language model inference cost and latency as first-class compilation constraints.
 
 ## Summary
-cascade-opt is a database optimizer middleware layer that treats LLM inference cost and latency as first-class compilation constraints. Built for enterprise applications that embed heavy AI text-analysis primitives directly inside relational or semi-structured databases, cascade-opt sits in the query request path to intercept declarative requests and compile highly cost-efficient execution plans.
+cascade-opt is an AI-Native Data Access Layer (DAL) middleware that sits between application runtime environments and relational database structures. It intercepts data access requests—whether submitted as raw SQL strings, object-relational mappings (ORMs), or free-form natural language—and compiles them into highly cost-optimized, execution-ready query plans. Built to handle massive unstructured text processing at scale, cascade-opt automatically balances financial budgets, network latency, and output precision by combining traditional relational engine principles with adaptive model cascading pipelines.
 
 ## Project Goals & Technical Scope
-This repository focuses on deep database engineering and FinOps architecture, covering:
+This repository focuses on advanced database systems engineering, data virtualization, and AI FinOps optimization, covering:
 
-* Relational Predicate Reordering: A query compilation engine that analyzes expressions to force traditional database operations (indexing, date boundaries, numerical filters) to run before expensive AI text operators are ever triggered.
+* **Omnichannel Interface Parsing**: A multi-modal parsing subsystem capable of converting raw SQL, programmatic ORM expressions, or natural language prompts into a unified execution-ready AST (Abstract Syntax Tree).
 
-* Adaptive Model Cascading: Routing infrastructure that pipes unstructured text through fast, cheap open-weights local models first, evaluating token confidence output distribution metrics.
+* **Relational Projection & Transmutation**: Internal translation routines that seamlessly handle inline scalar transformations (e.g., column text concatenations like flight_id + '-' + tail_number) and shape structured AI outputs into deeply nested JSON geometries.
 
-* Inference Escalation Paths: Mechanisms that dynamically escalate ambiguous or border-case data rows to frontier text APIs only when local confidence thresholds are breached.
+* **Relational Predicate Reordering**: A logical query optimizer that forces standard indexing, numerical filters, and date boundaries to run before expensive semantic text operators are ever triggered.
 
-* Batching & Concurrency Controllers: High-throughput async batching layers to maximize model throughput and avoid vendor rate limits during massive data scanning operations.
+* **Adaptive Model Cascading & Routing**: An infrastructure-aware routing core that pipes text segments through fast, cheap local open-weights models first, automatically escalating anomalies to frontier text APIs based on real-time token confidence distribution scores.
+
+* **Database Execution Core Primitives**: High-throughput, vectorized async volcano iterators, distributed token-bucket semaphore controllers, and a two-tier semantic buffer pool manager to secure systems against rate limits and redundant API token expenditure.
 
 ## Architecture
 https://drive.google.com/file/d/1M1Tq1iXw4NPY8FJqiCjvz6-NzDzkjeqW/view?usp=sharing
 
 ## Business & Application Context
-This middleware is designed for big-data platforms, data lakes, and business intelligence reporting backends where massive data sets of unstructured text (such as customer return text justifications, global shipping manifests, or mechanical maintenance logs) must be analyzed using natural language processing. Running unoptimized, naive queries that call frontier LLMs for every single row in a million-row table will instantly exhaust company infrastructure budgets and stall business operations due to API latency timeouts. This architecture acts as an intelligent proxy layer that intercepts analytical queries, filters down the active row-set using standard database indices first, and applies a multi-tier model cascade to the remaining text data. By managing model escalation routes programmatically, it guarantees that massive data-scanning workflows execute with minimal latency while protecting the company from runaway cloud bills.
+Modern enterprises sit on top of massive relational databases flanked by millions of rows of unstructured text, such as customer communication logs, global supply chain manifests, or mechanical maintenance files. Traditional query mechanisms cannot process this natural language natively, while naive AI wrappers that send entire tables to cloud-hosted LLMs trigger catastrophic cloud infrastructure bills and system-wide latency timeouts.
+
+cascade-opt serves as an intelligent, drop-in proxy layer that generalizes text-based analytical searches. By abstracting away the underlying query format, it allows product developers to build intuitive natural language search bars or clean ORM application logic. The middleware shields the underlying data stack—filtering data sets using native indices first, optimizing text transforms, caching repeated states, and orchestrating a cost-capped model fleet to deliver structured, production-ready payloads safely and economically.
