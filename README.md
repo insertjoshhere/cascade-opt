@@ -15,5 +15,8 @@ This repository focuses on deep database engineering and FinOps architecture, co
 
 * Batching & Concurrency Controllers: High-throughput async batching layers to maximize model throughput and avoid vendor rate limits during massive data scanning operations.
 
+## Architecture
+https://drive.google.com/file/d/1M1Tq1iXw4NPY8FJqiCjvz6-NzDzkjeqW/view?usp=sharing
+
 ## Business & Application Context
 This middleware is designed for big-data platforms, data lakes, and business intelligence reporting backends where massive data sets of unstructured text (such as customer return text justifications, global shipping manifests, or mechanical maintenance logs) must be analyzed using natural language processing. Running unoptimized, naive queries that call frontier LLMs for every single row in a million-row table will instantly exhaust company infrastructure budgets and stall business operations due to API latency timeouts. This architecture acts as an intelligent proxy layer that intercepts analytical queries, filters down the active row-set using standard database indices first, and applies a multi-tier model cascade to the remaining text data. By managing model escalation routes programmatically, it guarantees that massive data-scanning workflows execute with minimal latency while protecting the company from runaway cloud bills.
